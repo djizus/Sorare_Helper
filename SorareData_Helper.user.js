@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.4.1
+// @version     0.4.2
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
@@ -15,8 +15,8 @@
 // @grant		GM_registerMenuCommand
 // @require		https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @require		http://code.jquery.com/jquery-3.4.1.min.js
-// @updateURL   https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.js
-// @downloadURL https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.js
+// @updateURL   https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.user.js
+// @downloadURL https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.user.js
 // @license		MIT
 // ==/UserScript==
 
