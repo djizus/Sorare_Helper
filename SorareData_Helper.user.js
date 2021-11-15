@@ -240,7 +240,7 @@
 			
             if (GM_config.get('blueBargains') && ethValNum / leftValue <= 1 && percent15GameNum > GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Blue');
-            } else if (ethValNum / bestMarketPriceNum <= (100-GM_config.get('greenBargains')/100) && percent15GameNum >= GM_config.get('global5Percentage')) {
+            } else if (ethValNum / bestMarketPriceNum <= (100-GM_config.get('greenBargains'))/100 && percent15GameNum >= GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Lime');
             } else if (ethValNum / bestMarketPriceNum <= 1 && points15GameNum >= GM_config.get('yellowBargains') && percent15GameNum >= GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Gold');
