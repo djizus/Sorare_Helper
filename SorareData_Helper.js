@@ -1,12 +1,14 @@
 // ==UserScript==
-// @name		SorareData Helper
-// @namespace	http://tampermonkey.net/
-// @version		0.4
-// @description	Helps you identify the bargains
-// @author		Djizus
+// @name        SorareData Helper
+// @version     0.4.1
+// @description Helps find the bargains on SorareData
+// @license     MIT
+// @author      djizus
 // @include		/^(?:https?:\/\/)?(?:www\.)?soraredata.com\/publicOffers/
 // @include		/^(?:https?:\/\/)?(?:www\.)?soraredata.com\/ongoingAuctions/
 // @icon		https://www.google.com/s2/favicons?domain=soraredata.com
+// @namespace   https://github.com/djizus
+// @supportURL  https://github.com/djizus/futwebapp-tampermonkey/issues
 // @grant		GM_getValue
 // @grant		GM_setValue
 // @grant		GM_addStyle
