@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.4.4
+// @version     0.5.1
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
@@ -21,12 +21,140 @@
 // ==/UserScript==
 
 (function() {
-    "use strict";
+    "use strict";	
 	
-    window.addEventListener("load", () => {
-		quickCheckOffers();
-    });
+	const windowcss = `
+		#sdhCfg {
+			background-color: lightblue;
+		}
+		#sdhCfg .reset_holder {
+			float: left;
+			position: relative;
+			bottom: -1em;
+		}
+		#sdhCfg .saveclose_buttons {
+			margin: .7em;
+		}
+		#sdhCfg_field_url {
+			background: none !important;
+			border: none;
+			cursor: pointer;      
+			padding: 0 !important;
+			text-decoration: underline;
+		}
+		#sdhCfg_field_url:hover,
+		#sdhCfg_resetLink:hover {
+			filter: drop-shadow(0 0 1px dodgerblue);
+		}
+	`;
+	const iframecss = `
+		height: 26.5em;
+		width: 43em;
+		border: 1px solid;
+		border-radius: 3px;
+		position: fixed;
+		z-index: 9999;
+	`;
 
+	GM_config.init({
+		id: 'sdhCfg',
+		title: 'SorareData Helper Configuration',
+		fields:
+		{
+			blueBargains:
+			{
+				section: ['', 'Settings'],
+				label: 'Activate the blue border which highlights cards listed at their very best market value',
+				labelPos: 'left',
+				type: 'checkbox',
+				default: true,
+			},
+			greenBargains:
+			{
+				label: 'Setup the green border which highlights cards listed for % less than the market value',
+				labelPos: 'left',
+				type: 'select',
+				options: ['5','10','15','20','25'],
+				default: '10',
+			},
+			yellowBargains:
+			{
+				label: 'Setup the yellow border which highlights cards listed at their market value or less and latest 15 scores > ',
+				labelPos: 'left',
+				type: 'select',
+				options: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+				default: '40',
+			},
+			global5Percentage:
+			{
+				label: 'Setup the starter percentage of the cards for the last 15 games',
+				labelPos: 'left',
+				type: 'select',
+				options: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90'],
+				default: '10',
+			},			
+			hideCards:
+			{
+				label: 'Hide all cards othen than the bargains detected by this configuration',
+				labelPos: 'left',
+				type: 'checkbox',
+				default: true,
+			},	
+			url:
+			{
+				section: ['', 'Support'],
+				label: 'You can find me here on github',
+				type: 'button',
+				click: () => {
+					GM_openInTab('https://github.com/djizus/Sorare_Helper', {
+						active: true,
+						insert: true,
+						setParent: true
+					});
+				}
+			},
+		},
+		css: windowcss,
+		events:
+		{
+			save: function() {
+				GM_config.close();
+			}
+		},
+	});
+	
+	function customizeSettings() {		
+		GM_config.open();
+		sdhCfg.style = iframecss;
+	}
+	
+	function addButton(text, onclick, cssObj) {
+        cssObj = cssObj || {
+            position: "fixed",
+            bottom: "5%",
+            right: "1%",
+            "z-index": 3,
+            fontWeight: "600",
+            fontSize: "14px",
+            backgroundColor: "#00cccc",
+            color: "white",
+            border: "none",
+            padding: "10px 20px"
+        };
+        let button = document.createElement("button"),
+            btnStyle = button.style;
+        document.body.appendChild(button);
+        button.innerHTML = text;
+		Object.keys(cssObj).forEach(key => (btnStyle[key] = cssObj[key]));
+        // Setting function for button when it is clicked.
+		button.addEventListener("click", function() {
+			customizeSettings();
+		}, false);
+        return button;
+    }
+    
+	addButton("Settings");
+			
     function quickCheckOffers() {
         $('.infinite-scroll-component > div > div').each(function(index) {
 
@@ -108,18 +236,20 @@
             let points15GameNum = points15Game.match(/[\d\.]+/g);
             points15GameNum = points15GameNum && points15GameNum[0]?parseInt(points15GameNum[0]):0;
 			
-            if (ethValNum <= leftValue && percent15GameNum > 0) {
+			//GM_config.get('hideCards')
+			
+            if (GM_config.get('blueBargains') && ethValNum / leftValue <= 1 && percent15GameNum > GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Blue');
-            } else if (ethValNum / bestMarketPriceNum <= 0.9 && percent15GameNum > 9) {
+            } else if (ethValNum / bestMarketPriceNum <= (100-GM_config.get('greenBargains')/100) && percent15GameNum >= GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Lime');
-            } else if (ethValNum / bestMarketPriceNum <= 0.95 && percent15GameNum > 9) {
+            } else if (ethValNum / bestMarketPriceNum <= 1 && points15GameNum >= GM_config.get('yellowBargains') && percent15GameNum >= GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Gold');
-            } else if (ethValNum / bestMarketPriceNum <= 1 && percent15GameNum > 9) {
-                box.css('border', '5px solid Peru');
             }
             else {
                 //box.css('border', '5px solid grey');
-                box.css('display', 'none');
+				if(GM_config.get('hideCards')){
+					box.css('display', 'none');
+				}                
             }
         });
     }
