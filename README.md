@@ -24,4 +24,4 @@ Install the scripts via [OpenUserJS][install-script]. Or find the latest version
 I don't plan to support this script regularly, you can still post in Issues and I may look into it.
 
 [issue-list]: https://github.com/djizus/Sorare_Helper/issues
-[install-script]: https://openuserjs.org/install/djizus/Sorare_Helper.js
+[install-script]: https://openuserjs.org/install/djizus/SorareData_Helper.user.js
