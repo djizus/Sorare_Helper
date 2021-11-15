@@ -13,6 +13,8 @@
 // @grant		GM_registerMenuCommand
 // @require		https://openuserjs.org/src/libs/sizzle/GM_config.js
 // @require		http://code.jquery.com/jquery-3.4.1.min.js
+// @updateURL   https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.js
+// @downloadURL https://github.com/djizus/Sorare_Helper/releases/latest/download/SorareData_Helper.js
 // @license		MIT
 // ==/UserScript==
 
