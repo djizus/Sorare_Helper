@@ -8,7 +8,7 @@
 // @include		/^(?:https?:\/\/)?(?:www\.)?soraredata.com\/ongoingAuctions/
 // @icon		https://www.google.com/s2/favicons?domain=soraredata.com
 // @namespace   https://github.com/djizus
-// @supportURL  https://github.com/djizus/futwebapp-tampermonkey/issues
+// @supportURL  https://github.com/djizus/Sorare_Helper/issues
 // @grant		GM_getValue
 // @grant		GM_setValue
 // @grant		GM_addStyle
