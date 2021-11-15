@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.4.3
+// @version     0.4.4
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
