@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.5.1
+// @version     0.5.3
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
@@ -175,7 +175,7 @@
             } else if (bestMarketPriceNum.length > 1 ){
                 bestMarketPriceNum = parseFloat(bestMarketPriceNum[1]);
             } else {
-				bestMarketPriceNum = parseFloat(bestMarketPriceNum[0]);
+                bestMarketPriceNum = parseFloat(bestMarketPriceNum);
 			}
 
             let Average3Days = ethValues.find('div[data-tip="3 days average"] p').text();
@@ -187,14 +187,15 @@
             let Average1Month = ethValues.find('div[data-tip="1 month average"] p').text();
             let Average1MonthNum = Average1Month.match(/[\d\.]+/g);
             let lifetimePriceAverage = ethValues.find('div[data-tip="Card lifetime price average"] p').text();
-            let lifetimePriceAverageNum = lifetimePriceAverage.match(/[\d\.]+/g);        
-			
+            let lifetimePriceAverageNum = lifetimePriceAverage.match(/[\d\.]+/g);
+
             if (Average3DaysNum == null) {
 				if(Average1WeekNum == null) {
 					if(Average2WeeksNum == null) {
 						if(Average1MonthNum == null) {
 							if(lifetimePriceAverageNum == null) {
-								leftValue = parseFloat(bestMarketPriceNum[0]);
+                                console.log("bestmarketpricedata: " + bestMarketPriceNum);
+								leftValue = parseFloat(bestMarketPriceNum);
 							}
 							else{
 								leftValue = parseFloat(lifetimePriceAverageNum[0]);
@@ -205,12 +206,12 @@
 						}
 					}
 					else {
-						leftValue = parseFloat(Average2WeeksNum[0]);					
+						leftValue = parseFloat(Average2WeeksNum[0]);
 					}
 				}
 				else{
 					leftValue = parseFloat(Average1WeekNum[0]);
-				}					
+				}
             } else {
                 leftValue = parseFloat(Average3DaysNum[0]);
             }
@@ -220,7 +221,7 @@
             let percent5Game = pointValues.find("span[data-tip='% of games played over the past 5 games']").text();
             let percent5GameNum = percent5Game.match(/[\d\.]+/g);
             percent5GameNum = percent5GameNum && percent5GameNum[0]?parseInt(percent5GameNum[0]):0;
-			
+
             //points 5 games.
             let points5Game = pointValues.find("span[data-tip='Average score over the past 5 games']").text();
             let points5GameNum = points5Game.match(/[\d\.]+/g);
@@ -235,9 +236,8 @@
             let points15Game = pointValues.find("span[data-tip='Average score over the past 15 games']").text();
             let points15GameNum = points15Game.match(/[\d\.]+/g);
             points15GameNum = points15GameNum && points15GameNum[0]?parseInt(points15GameNum[0]):0;
-			
-			//GM_config.get('hideCards')
-			
+
+			//Show the bargains !
             if (GM_config.get('blueBargains') && ethValNum / leftValue <= 1 && percent15GameNum > GM_config.get('global5Percentage')) {
                 box.css('border', '5px solid Blue');
             } else if (ethValNum / bestMarketPriceNum <= (100-GM_config.get('greenBargains'))/100 && percent15GameNum >= GM_config.get('global5Percentage')) {
@@ -249,7 +249,7 @@
                 //box.css('border', '5px solid grey');
 				if(GM_config.get('hideCards')){
 					box.css('display', 'none');
-				}                
+				}
             }
         });
     }
