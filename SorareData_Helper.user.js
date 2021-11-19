@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.5.3
+// @version     0.5.4
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
@@ -194,7 +194,6 @@
 					if(Average2WeeksNum == null) {
 						if(Average1MonthNum == null) {
 							if(lifetimePriceAverageNum == null) {
-                                console.log("bestmarketpricedata: " + bestMarketPriceNum);
 								leftValue = parseFloat(bestMarketPriceNum);
 							}
 							else{
