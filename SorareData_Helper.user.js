@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        SorareData Helper
-// @version     0.5.5
+// @version     0.6
 // @description Helps find the bargains on SorareData
 // @license     MIT
 // @author      djizus
@@ -215,24 +215,27 @@
                 leftValue = parseFloat(Average3DaysNum[0]);
             }
 
+            //get the so5 values
+            let so5Box = infoBox.find('.cOHQFr');
+            let pointValues = so5Box.children('div:eq(2)')
+			
             //percent 5 games.
-            let pointValues = infoBox.find('.eZKQvz');
-            let percent5Game = pointValues.find("span[data-tip='% of games played over the past 5 games']").text();
+            let percent5Game = pointValues.find('div[data-tip$="% games played over the past 5 games"] p').text();
             let percent5GameNum = percent5Game.match(/[\d\.]+/g);
             percent5GameNum = percent5GameNum && percent5GameNum[0]?parseInt(percent5GameNum[0]):0;
 
             //points 5 games.
-            let points5Game = pointValues.find("span[data-tip='Average score over the past 5 games']").text();
+			let points5Game = pointValues.find('div[data-tip="Average SO5 points (DNPs excluded) over the past 5 games"] p').text();
             let points5GameNum = points5Game.match(/[\d\.]+/g);
             points5GameNum = points5GameNum && points5GameNum[0]?parseInt(points5GameNum[0]):0;
 
             //percent 15 games.
-            let percent15Game = pointValues.find("span[data-tip='% of games played over the past 15 games']").text();
+            let percent15Game = pointValues.find('div[data-tip$="% games played over the past 15 games"] p').text();
             let percent15GameNum = percent15Game.match(/[\d\.]+/g);
             percent15GameNum = percent15GameNum && percent15GameNum[0]?parseInt(percent15GameNum[0]):0;
 
             //points 15 games.
-            let points15Game = pointValues.find("span[data-tip='Average score over the past 15 games']").text();
+			let points15Game = pointValues.find('div[data-tip="Average SO5 points (DNPs excluded) over the past 15 games"] p').text();
             let points15GameNum = points15Game.match(/[\d\.]+/g);
             points15GameNum = points15GameNum && points15GameNum[0]?parseInt(points15GameNum[0]):0;
 
